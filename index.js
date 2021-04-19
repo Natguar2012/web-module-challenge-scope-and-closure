@@ -13,15 +13,15 @@
  * It returns the string `foofoo`
 */
 
-/*function processFirstItem(stringList, callback) {
+function processFirstItem(stringList, callback) {
   return callback(stringList[0])
 }
-//console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
+console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
 function addStrings(str){
   return str+str;
 }
 
-//console.log(processFirstItem(['foo', 'bar'],addStrings));
+console.log(processFirstItem(['foo', 'bar'],addStrings));
 // ⭐️ Example Challenge END ⭐️
 
 
@@ -43,21 +43,21 @@ function addStrings(str){
 */
 
 // counter1 code
-// function counterMaker() {
-//   let count = 0;
-//   return function counter() {
-//    return count++;
-//   }
-// }
+function counterMaker() {
+  let count = 0;
+  return function counter() {
+   return count++;
+  }
+}
 
-// const counter1 = counterMaker();
+const counter1 = counterMaker();
 
-// // counter2 code
-// let count = 0;
+// counter2 code
+let count = 0;
 
-// function counter2() {
-//   return count++;
-// }
+function counter2() {
+  return count++;
+}
 
 /* ⚾️⚾️⚾️ Task 2: inning() ⚾️⚾️⚾️
 Use the inning function below to do the following:
@@ -68,10 +68,16 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-// function inning(){
-  // return Math.floor(Math.random()*3);
-// }
+function inning(){
+  return Math.floor(Math.random()*4);
+}
 
+console.log(inning());
+// console.log(inning());
+// console.log(inning());
+// console.log(inning());
+// console.log(inning());
+// console.log(inning());
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
 Use the finalScore function below to do the following:
@@ -88,14 +94,16 @@ Use the finalScore function below to do the following:
 */ 
 
 
-// function finalScore(inningCb, number) {
-//   let homeScore =0;
-//   let awayScore =0;
-//   for(let i=0; i<number; i++){
-//     homeScore= homeScore + inningCb();
-//     awayScore= awayScore + inningCb();
-//   }
-// }
+function finalScore(inningCb, number) {
+  return{
+
+  Home: inningCb() * number,
+  Away: inningCb() * number
+  }
+}
+
+console.log(finalScore(inning, 2));
+
 
 
 
@@ -105,12 +113,14 @@ Use the getInningScore() function below to do the following:
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
 
-// function getInningScore(callback) {
-//   return {
-//     Home: callback(),
-//     Away: callback()
-//   }
-// }
+function getInningScore(callbackCB) {
+  return {
+    Home: callbackCB(),
+    Away: callbackCB()
+  }
+}
+
+console.log(getInningScore(inning));
 
 
 
@@ -156,20 +166,23 @@ Use the scoreboard function below to do the following:
   */
 
 
-// function scoreboard(getinningScoreCB,inningCB, nameOfInningCB) {
-//   let scores = [];
-//   let home= 0;
-//   let away= 0;
-//   for(let i=0;i<numberofInnings;i++){
-//     let inningScores=getInningScoreCB(inningCB);
-//     home += inningScores.Home;
-//     away += inningScores.Away;
-//     scores.push(`Inning ${i+1} : Away ${inningScores.Away} - Home ${inningScores.Home}`);
-//   }
-//   if(home === away){
-//     scores.push();
-//   }
-// }
+function scoreboard(getInningScoreCB, inningCB, nameOfInningCB) {
+  let scores = [];
+  let home= 0;
+  let away= 0;
+  for(let i=0; i<nameOfInningCB; i++){
+    let inningScore= getInningScoreCB(inningCB);
+    home += inningScore.Home;
+    away += inningScore.Away;
+    scores.push(`Inning ${i+1} : Away ${inningScore.Away} - Home ${inningScore.Home}`);
+  }
+  if(home === away){
+    scores.push(`This game will require extra innings: ${away} - ${home}`);
+  }
+  return scores;
+}
+
+console.log(scoreboard(getInningScore,inning, 3));
 
 
 
